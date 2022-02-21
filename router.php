@@ -17,7 +17,6 @@ if (isset($variables[0])&&!empty($variables[0]))
 				if (isset($variables[2])&&!empty($variables[2])) 
 				{
 					$object->$action($variables[2]);
-
 				}
 				else
 				{
@@ -39,5 +38,6 @@ if (isset($variables[0])&&!empty($variables[0]))
 	}
 }
 else{
-	require_once __DIR__."/view/index.php"; 
+	// require_once __DIR__."/view/index.php"; 
+	header("location:http://localhost/TripReservation/Booking/index");
 }
