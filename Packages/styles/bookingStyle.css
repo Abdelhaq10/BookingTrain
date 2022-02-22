@@ -1,26 +1,22 @@
 
 body {
-    background-image: linear-gradient(to right, #7B1FA2, #E91E63)
+    background-image: linear-gradient(to right, #7B1FA2, #E91E63);
+    height:100vh;
 }
 
-.section {
-    position: relative;
-    height: 100vh
-}
-
-.section .section-center {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    -webkit-transform: translateY(-50%);
-    transform: translateY(-50%)
+/* .container */
+.container{
+        transform: translateY(50px);
+    padding-bottom: 60px;
 }
 
 #booking {
     font-family: 'Raleway', sans-serif
 }
-
+.id
+{
+    display: none;
+}
 .booking-form {
     position: relative;
     max-width: 642px;
@@ -31,9 +27,11 @@ body {
     background-image: url('https://images.pexels.com/photos/1170184/pexels-photo-1170184.jpeg?cs=srgb&dl=pexels-veerasak-piyawatanakul-1170184.jpg&fm=jpg');
     background-size: cover;
     border-radius: 5px;
-    z-index: 20
+    z-index: 20;
 }
-
+textarea.form-control {
+    padding: 18px 20px !important;
+}
 .booking-form::before {
     content: '';
     position: absolute;
@@ -54,7 +52,7 @@ body {
 .booking-form .form-header h1 {
     font-weight: 700;
     text-transform: capitalize;
-    font-size: 42px;
+    font-size: 32px;
     margin: 0px;
     color: #fff
 }
@@ -66,7 +64,7 @@ body {
 
 .booking-form .form-control {
     background-color: rgba(255, 255, 255, 0.2);
-    height: 60px;
+    height: 50px;
     padding: 0px 25px;
     border: none;
     border-radius: 40px;
@@ -196,6 +194,9 @@ body {
 @media(max-width:575px) {
     .container {
         width: 100%;
-        padding: 20px 10px
+        padding: 20px 10px;
+    }
+    .section .section-center{
+        top:60%;
     }
 }

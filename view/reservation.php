@@ -56,7 +56,7 @@
 
 
                                 <!-- Trips List -->
-
+    
     <div class="container rounded mt-5 bg-white p-md-5" id="listTrip">
     <div class="h2 font-weight-bold">Trips List</div>
     <div class="table-responsive">

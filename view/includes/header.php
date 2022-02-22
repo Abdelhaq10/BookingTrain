@@ -16,6 +16,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- <link rel="stylesheet" href="../Packages/styles/style.css"> -->
      <link rel="stylesheet" href="<?=CSS_PATH?>style.css">
+      <!-- <link rel="stylesheet" href="<?=CSS_PATH?>bookingStyle.css"> -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"></script>
@@ -31,13 +32,13 @@
                         <li class="nav-item"> <a class="nav-link" href="http://localhost/TripReservation/Booking/about">About</a> </li>
                         <li class="nav-item"> <a class="nav-link" href="http://localhost/TripReservation/Booking/contact">Contact</a> </li>
                         <li class="nav-item"> <a class="nav-link" href="http://localhost/TripReservation/Booking/reservation">Reservation</a> </li>
-                        <li class="nav-item">  
+                        <!-- <li class="nav-item">  
                             <button type="button" class="btn nav-link" data-toggle="modal" data-target="#exampleModal">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
                                 <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
                                 </svg>&nbsp;&nbsp;Cart
                             </button> 
-                        </li>
+                        </li> -->
                         
                         <li class="nav-item active"> <a class="nav-link btn-link" href="http://localhost/TripReservation/Booking/login">Login</a> </li>
                     </ul>

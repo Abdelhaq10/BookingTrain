@@ -59,8 +59,28 @@ class BookingController
 	{
 		echo "cancel function";
 	}
-	public function bookingTrip()
+	public function bookingTrip($idTrip)
 	{
+		
+		$selectedTrip=booking::selectedTrip($idTrip);
+		
+		// print_r($selectedTrip);	
+	
+		require_once __DIR__."/../view/tripBooking.php";
+	}
+	public function reserve()
+	{	
+		
+		$idT=$_POST['idTrip'];
+		$nbPerson=$_POST['nbperson'];
+		$price=$_POST['price'];
+		$fname=$_POST['fname'];
+		$lname=$_POST['lname'];
+		$adresse=$_POST['adresse'];
+		$tel=$_POST['tel'];
+		$email=$_POST['email'];
+		$booking=new booking($idT,$nbPerson,$price,$fname,$lname,$adresse,$email,$tel);
+		$booking->reserve();
 		require_once __DIR__."/../view/tripBooking.php";
 	}
 }

@@ -18,4 +18,39 @@ class operation extends Dbconnect {
         $results = $stmt->fetchAll();
         return $results;
     }
+    public function getTrip($idTrip)
+    {
+        $sql="SELECT * FROM `trip` WHERE idTrip='$idTrip'";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute();
+        $results = $stmt->fetch();
+        return $results;
+    }
+            //reserve Trip
+    public function insertUser($fname,$lname,$adresse,$email,$phone)
+    {
+         $str="INSERT INTO `user`( `Fname`, `Lname`, `Adresse`, `email`, `phone`) VALUES ('$fname','$lname','$adresse','$email','$phone')";
+		$query=$this->connect()->prepare($str);
+		$query->execute();
+      
+    }
+    public function getLastId()
+    {
+        $last_id="SELECT MAX(idUser) FROM user";
+        $query=$this->connect()->prepare($last_id);
+        $query->execute();
+         $results = $query->fetch();
+        return $results;
+    }
+    public function addReservation($idTrip,$nbPerson,$price,$fname,$lname,$adresse,$email,$phone)
+    {
+        $payment=$price * $nbPerson;
+        $this->insertUser($fname,$lname,$adresse,$email,$phone);
+        $last_idUser = $this->getLastId();
+        $iduser= $last_idUser['MAX(idUser)'];
+      
+        $res="INSERT INTO `booking`(`idTrip`, `Nperson`, `payment`, `idUser`) VALUES ('$idTrip','$nbPerson','$payment','$iduser')";
+        $queryReserve=$this->connect()->prepare($res);
+        $queryReserve->execute();
+    }
 }
