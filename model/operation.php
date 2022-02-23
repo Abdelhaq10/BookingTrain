@@ -57,9 +57,12 @@ class operation extends Dbconnect {
         $queryReserve=$this->connect()->prepare($res);
         $queryReserve->execute();
     }
-    public function addReservationByClient()
+    public function addReservationByClient($idTrip,$nbPerson,$price,$iduser)
     {
-        
+        $payment=$price * $nbPerson;
+         $res="INSERT INTO `booking`(`idTrip`, `Nperson`, `payment`, `idUser`) VALUES ('$idTrip','$nbPerson','$payment','$iduser')";
+        $queryReserve=$this->connect()->prepare($res);
+        $queryReserve->execute();
     }
 // authentification
 

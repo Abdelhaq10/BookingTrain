@@ -43,8 +43,5 @@ class booking extends operation{
         $reserve->addReservation($this->idTrip,$this->nbPerson,$this->price,$this->fname,$this->lname,$this->adresse,$this->email,$this->phone);
       
     }
-    // public function reserveByClient()
-    // {
-
-    // }
+   
 }

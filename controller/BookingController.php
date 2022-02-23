@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__."/../model/booking.php";
 require_once __DIR__."/../model/authentefication.php";
+session_start();
 class BookingController
 {
     	public function __construct()
@@ -27,7 +28,7 @@ class BookingController
 	}
 	public function reservation()
 	{
-		
+		$message ="";
 		$trains=booking::selectTrain();
 		$trips=booking::selectTrip();
 		require_once __DIR__."/../view/reservation.php";
@@ -75,18 +76,29 @@ class BookingController
 		$idT=$_POST['idTrip'];
 		$nbPerson=$_POST['nbperson'];
 		$price=$_POST['price'];
-		$fname=$_POST['fname'];
-		$lname=$_POST['lname'];
-		$adresse=$_POST['adresse'];
-		$tel=$_POST['tel'];
-		$email=$_POST['email'];
-	    $booking=new booking($idT,$nbPerson,$price,$fname,$lname,$adresse,$email,$tel);
+		
+	//    echo $_SESSION['idUser'];
+		$reserveCli=new Authentification();
 		if(isset($_SESSION['idClient']))
 		{
+			$reserveCli->reserveByClient($idT,$nbPerson,$price,$_SESSION['idUser']);
+			$this->reservation();
 			
 		}
-		$booking->reserve();
-		require_once __DIR__."/../view/reservation.php";
+		else{
+			$fname=$_POST['fname'];
+			$lname=$_POST['lname'];
+			$adresse=$_POST['adresse'];
+			$tel=$_POST['tel'];
+			$email=$_POST['email'];
+			 $booking=new booking($idT,$nbPerson,$price,$fname,$lname,$adresse,$email,$tel);
+			$booking->reserve();
+		//	$this->reservation()->message ="added succesfully";
+			$this->reservation();
+			
+		}
+		
+		// require_once __DIR__."/../view/reservation.php";
 	}
 	public function loginPage()
 	{
@@ -197,7 +209,7 @@ class BookingController
 
           if($isLogged){
             // Create Session
-				session_start();
+				// session_start();
             // $this->createUserSession($isLogged);
 			 $_SESSION['idClient'] = $isLogged['idClient'];
 			//  echo $_SESSION['idClient'];
@@ -221,5 +233,13 @@ class BookingController
         require_once __DIR__."/../view/client/login.php";
       }
     }
-
+	public function Logout()
+	{
+		 unset($_SESSION['idClient']);
+     	 unset($_SESSION['email']);
+     	 unset($_SESSION['password']);
+		 unset($_SESSION['idUser']);
+      	 session_destroy();
+		   $this->index();
+	}	
 }

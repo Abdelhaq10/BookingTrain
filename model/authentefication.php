@@ -63,7 +63,11 @@ public function login($email, $password){
     
     }
 
-
+ public function reserveByClient($idTrip,$nbPerson,$price,$iduser)
+    {
+       $reserveC= new operation();
+       $reserveC->addReservationByClient($idTrip,$nbPerson,$price,$iduser);
+    }
 
 
 

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <?php 
-    session_start();
+    // session_start();
     define('CSS_PATH', 'http://localhost/TripReservation/Packages/styles/');
     define('IMG_PATH', 'http://localhost/TripReservation/Packages/Images/');
     ?>
@@ -41,7 +41,7 @@
                             </button> 
                         </li> -->
                           <?php if(isset($_SESSION['idClient'])) : ?>
-                            <li class="nav-item active"> <a class="nav-link btn-link" href="http://localhost/TripReservation/Booking/logOutPage">Log Out</a> </li>
+                            <li class="nav-item active"> <a class="nav-link btn-link" href="http://localhost/TripReservation/Booking/Logout">Log Out</a> </li>
                             <?php else : ?>
                         <li class="nav-item active"> <a class="nav-link btn-link" href="http://localhost/TripReservation/Booking/loginPage">Login</a> </li>
                         <?php endif; ?>

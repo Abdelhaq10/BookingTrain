@@ -10,6 +10,7 @@
                 <div class="card border-0">
                     <div class="card text-center">
                         <div class="card-header">Schedule Your Trip</div>
+                        <?= $message ?>
                         <div class="card-body">
                             <div class="row px-4">
                                 <div class="col-md-6 pl-0 pr-0 pr-md-2 mb-2"> 
