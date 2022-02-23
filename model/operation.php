@@ -29,10 +29,14 @@ class operation extends Dbconnect {
             //reserve Trip
     public function insertUser($fname,$lname,$adresse,$email,$phone)
     {
-         $str="INSERT INTO `user`( `Fname`, `Lname`, `Adresse`, `email`, `phone`) VALUES ('$fname','$lname','$adresse','$email','$phone')";
+         $str="INSERT INTO `user`( `Fname`, `Lname`, `Adresse`, `email`, `phone`) VALUES(:fname, :lname,:adresse,:email,:phone)";
 		$query=$this->connect()->prepare($str);
+        $query->bindValue(':fname', $fname);
+        $query->bindValue(':lname', $lname);
+        $query->bindValue(':adresse', $adresse);
+        $query->bindValue(':email', $email);
+        $query->bindValue(':phone', $phone);
 		$query->execute();
-      
     }
     public function getLastId()
     {
@@ -53,4 +57,10 @@ class operation extends Dbconnect {
         $queryReserve=$this->connect()->prepare($res);
         $queryReserve->execute();
     }
+    public function addReservationByClient()
+    {
+        
+    }
+// authentification
+
 }

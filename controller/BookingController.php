@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__."/../model/booking.php";
+require_once __DIR__."/../model/authentefication.php";
 class BookingController
 {
     	public function __construct()
@@ -79,8 +80,146 @@ class BookingController
 		$adresse=$_POST['adresse'];
 		$tel=$_POST['tel'];
 		$email=$_POST['email'];
-		$booking=new booking($idT,$nbPerson,$price,$fname,$lname,$adresse,$email,$tel);
+	    $booking=new booking($idT,$nbPerson,$price,$fname,$lname,$adresse,$email,$tel);
+		if(isset($_SESSION['idClient']))
+		{
+			
+		}
 		$booking->reserve();
-		require_once __DIR__."/../view/tripBooking.php";
+		require_once __DIR__."/../view/reservation.php";
 	}
+	public function loginPage()
+	{
+		require_once __DIR__."/../view/client/login.php";
+	}
+	public function signupPage()
+	{
+		require_once __DIR__."/../view/client/signup.php";
+	}
+
+	//Authentification
+	//signUp
+	public function signUp()
+	{
+			
+		if($_SERVER['REQUEST_METHOD'] == 'POST')
+		
+		{
+			$signup=new Authentification();
+			$_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+			$emailError='';
+			$passError='';
+			$fname=$_POST['fname'];
+			$lname=$_POST['lname'];
+			$adresse=$_POST['adresse'];
+			$tel=$_POST['tel'];
+			$email=$_POST['email'];
+			$password=$_POST['password'];
+			// $ques=$signup->signup($fname,$lname,$adresse,$email,$tel,$password);
+			// echo "is it :    " . $ques ;
+				if(empty($email))
+				{
+          			$emailError = 'Pleae enter email';
+        		} 
+				if($signup->clientAlreadyExist($email))
+				{
+          			$emailError = 'Email is already exist';
+        		} 
+				if(empty($password))
+				{
+					$passError="please enter password";
+				}
+				if(empty($emailError) && empty($passError))
+				{
+					$password=password_hash($password, PASSWORD_DEFAULT);
+					
+					$test=$signup->signup($fname,$lname,$adresse,$email,$tel,$password);
+				
+					if($test)	
+					{		
+						 require_once __DIR__."/../view/client/login.php";
+					}
+					else{
+
+						
+						die('something went wrong');
+					}
+				}else
+				{	
+						$emailError;
+						$passError;
+						require_once __DIR__."/../view/client/signup.php";
+				}
+			
+	    }
+	}
+
+
+
+
+	//login
+	 public function login(){
+      // Check for POST
+      if($_SERVER['REQUEST_METHOD'] == 'POST'){
+        // Process form
+        // Sanitize POST data
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        
+        // Init data
+			$signup=new Authentification();
+			$emailError='';
+			$passError='';
+			$email=$_POST['email'];
+			$password=$_POST['pass'];
+        // Validate Email
+        if(empty($email)){
+          $data['email_err'] = 'Pleae enter email';
+        }
+
+        // Validate Password
+        if(empty($password)){
+          $data['password_err'] = 'Please enter password';
+        }
+
+        // Check for user/email
+        // if($use->findUserByEmail($data['email'])){
+          // User found
+        // } else {
+          // User not found
+        //   $data['email_err'] = 'No user found';
+        // }
+
+        // Make sure errors are empty
+        if(!empty($email) && !empty($password)){
+          // Validated
+          // Check and set logged in user
+          $isLogged = $signup->login($email,$password);
+
+          if($isLogged){
+            // Create Session
+				session_start();
+            // $this->createUserSession($isLogged);
+			 $_SESSION['idClient'] = $isLogged['idClient'];
+			//  echo $_SESSION['idClient'];
+     		 $_SESSION['email'] = $isLogged['email'];
+     		 $_SESSION['password'] = $isLogged['pass'];
+			  $_SESSION['idUser'] = $isLogged['idUser'];
+     		 require_once __DIR__."/../view/index.php";
+          } else {
+            $passError = 'Password incorrect';
+
+            require_once __DIR__."/../view/client/login.php";
+          }
+        } else {
+          // Load view with errors
+          require_once __DIR__."/../view/client/login.php";
+        }
+
+
+      } else {
+        // Load view
+        require_once __DIR__."/../view/client/login.php";
+      }
+    }
+
 }

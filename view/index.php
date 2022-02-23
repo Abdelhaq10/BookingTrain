@@ -10,5 +10,4 @@
     </div>
     <div class="col-md-6 center">
         <img class="img-fluid img" src="<?= IMG_PATH?>Station.png" alt="">
-    </div>
-</div>
+   

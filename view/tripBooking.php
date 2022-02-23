@@ -22,7 +22,7 @@
                               <div class="row">
                                 <div class="col-md-6">
                                    <input type="text" class="id" name="idTrip"  value="<?= $selectedTrip['idTrip'] ?>" id="id">
-                                <div class="form-group">    <input class="form-control" type="text" placeholder="Departure Destination..." value="<?= $selectedTrip['departure'] ?>" > <span class="form-label">Departure Destination</span> </div>
+                                <div class="form-group">    <input class="form-control" type="text" placeholder="Departure Destination..." value="<?= $selectedTrip['departure'] ?>" onlyread> <span class="form-label">Departure Destination</span> </div>
                                 </div>
                                 <div class="col-md-6">
                                     <input class="form-control" type="text"  placeholder="Arrival Destination..." value="<?= $selectedTrip['arrival'] ?>" > <span class="form-label">Arrival Destination</span> 
@@ -52,7 +52,7 @@
                          </div>
 
 
-
+                        <?php if(!isset($_SESSION['idClient'])) : ?>
                         <div class="form-group">
                               <div class="row">
                                 <div class="col-md-6">
@@ -77,6 +77,7 @@
                                 <div class="form-group"> <input class="form-control" name="tel" type="tel" placeholder="Enter you Phone"> <span class="form-label">Phone</span> </div>
                             </div>
                         </div>
+                        <?php endif ?>
                         <div class="form-btn"> <button class="submit-btn">Book Now</button> </div>
                     </form>
                 </div>
