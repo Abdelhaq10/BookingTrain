@@ -5,6 +5,7 @@
     <form action="http://localhost/TripReservation/Booking/login" method="POST">
     <div class="text-left"> 
         <H2>DoraExpress</H2><br> 
+        <?= $Error ?>
         <span class="abt">New Here? <a href="http://localhost/TripReservation/Booking/signupPage">Create an account.</a></span> 
     </div>
     <div>
@@ -13,7 +14,8 @@
         </div>
         <div class="inputbox">
             <div class="d-flex justify-content-between align-items-center"> <span>Password</span>
-             <a href="#">Forgot your password?</a> </div> <input type="password" name="pass" class="form-control" required="required">
+              </div> <input type="password" name="pass" class="form-control" required="required">
+              <a href="#" class="d-flex justify-content-end">Log as Admin?</a>
         </div>
     </div>
     <div class="mt-2 proceed">

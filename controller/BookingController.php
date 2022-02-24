@@ -11,6 +11,7 @@ class BookingController
 
 	public function index()
 	{
+		
 		require_once __DIR__."/../view/index.php";
 	}
 	public function about()
@@ -28,7 +29,6 @@ class BookingController
 	}
 	public function reservation()
 	{
-		$message ="";
 		$trains=booking::selectTrain();
 		$trips=booking::selectTrip();
 		require_once __DIR__."/../view/reservation.php";
@@ -82,7 +82,7 @@ class BookingController
 		if(isset($_SESSION['idClient']))
 		{
 			$reserveCli->reserveByClient($idT,$nbPerson,$price,$_SESSION['idUser']);
-			$this->reservation();
+			require_once __DIR__."/../Packages/SuccesMssgs/addedsuccess.php";
 			
 		}
 		else{
@@ -93,15 +93,15 @@ class BookingController
 			$email=$_POST['email'];
 			 $booking=new booking($idT,$nbPerson,$price,$fname,$lname,$adresse,$email,$tel);
 			$booking->reserve();
-		//	$this->reservation()->message ="added succesfully";
-			$this->reservation();
+			$message ="added succesfully";
+			require_once __DIR__."/../Packages/SuccesMssgs/addedsuccess.php";$this->reservation();
 			
 		}
 		
-		// require_once __DIR__."/../view/reservation.php";
 	}
 	public function loginPage()
 	{
+		$Error='';
 		require_once __DIR__."/../view/client/login.php";
 	}
 	public function signupPage()
@@ -168,7 +168,6 @@ class BookingController
 
 
 
-
 	//login
 	 public function login(){
       // Check for POST
@@ -218,18 +217,20 @@ class BookingController
 			  $_SESSION['idUser'] = $isLogged['idUser'];
      		 require_once __DIR__."/../view/index.php";
           } else {
-            $passError = 'Password incorrect';
+            $Error = 'Email or password is invalid';
 
             require_once __DIR__."/../view/client/login.php";
           }
         } else {
           // Load view with errors
+		  $emailError="smthng is wrong";
           require_once __DIR__."/../view/client/login.php";
         }
 
 
       } else {
         // Load view
+		$emailError="smthng is wrong";
         require_once __DIR__."/../view/client/login.php";
       }
     }
