@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__."/../model/booking.php";
 require_once __DIR__."/../model/authentefication.php";
+require_once __DIR__."/../model/manage.php";
 session_start();
 class BookingController
 {
@@ -18,36 +19,46 @@ class BookingController
 	{
 		require_once __DIR__."/../view/about.php";
 	}
+	public function contact()
+	{
+		require_once __DIR__."/../view/manage.php";
+	}
 	public function createTrip()
 	{
-		require_once __DIR__."/../view/trips.php";
+		require_once __DIR__."/../view/addTrip.php";
 	}
 
-	public function save()
+	public function addTrip()
 	{
 	
 	}
 	public function reservation()
 	{
+		
 		$trains=booking::selectTrain();
 		$trips=booking::selectTrip();
 		require_once __DIR__."/../view/reservation.php";
 	}
-	// 	public function trip()
-	// {
-	// 	require_once __DIR__."/../view/trips.php";
-	// }
-	// public function findTrip()
-	// {
-	// 	$dateD=$_POST['start-date'];
-	// 	$dateA=$_POST['end-date'];
-	// 	$stationD=$_POST['stationDep'];
-	// 	$stationA=$_POST['stationAri'];
-	// 	$trips=new booking($dateD,$dateA,$stationD,$stationA);
-	// 	$trips->selectTrip();
-		
-	// 	header("Location: http://localhost/TripReservation/booking/trip");
-	// }
+		public function trips()
+	{
+		$manage = new Manage();
+		$tripsList = $manage->getTrips();
+		require_once __DIR__."/../view/trips.php";
+	}
+	public function cancel($idTrip)
+	{
+			$manage = new Manage();
+			$cancel=$manage->cancel($idTrip);
+			$_SESSION['mssg']="Canceled";
+			header("Location: http://localhost/TripReservation/booking/trips");
+	}
+	public function active($idTrip)
+	{
+			$manage = new Manage();
+			$_SESSION['active']="Activated";
+			$active=$manage->active($idTrip);
+			header("Location: http://localhost/TripReservation/booking/trips");
+	}
 	public function editTrip()
 	{
 	    echo "getting the trip with the exact id";
@@ -103,6 +114,11 @@ class BookingController
 	{
 		$Error='';
 		require_once __DIR__."/../view/client/login.php";
+	}
+	public function loginAdminPage()
+	{
+		$Error='';
+		require_once __DIR__."/../view/admin/login.php";
 	}
 	public function signupPage()
 	{
@@ -184,12 +200,12 @@ class BookingController
 			$password=$_POST['pass'];
         // Validate Email
         if(empty($email)){
-          $data['email_err'] = 'Pleae enter email';
+          $emailError = 'Pleae enter email';
         }
 
         // Validate Password
         if(empty($password)){
-          $data['password_err'] = 'Please enter password';
+          $passError = 'Please enter password';
         }
 
         // Check for user/email
@@ -234,6 +250,84 @@ class BookingController
         require_once __DIR__."/../view/client/login.php";
       }
     }
+
+	public function dashboard()
+	{
+		$manage=new Manage();
+		$listTrips=$manage->getReservation();
+		$nbTrips=$manage->countTrips()['COUNT(*)'];
+		$nbBooking=$manage->countReservation()['COUNT(*)'];
+		$nbClient=$manage->countClients()['COUNT(*)'];
+		require_once __DIR__."/../view/manage.php";
+	}
+
+
+	 public function Admin(){
+      // Check for POST
+      if($_SERVER['REQUEST_METHOD'] == 'POST'){
+        // Process form
+        // Sanitize POST data
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        
+        // Init data
+			$signup=new Authentification();
+			$emailError='';
+			$passError='';
+			$email=$_POST['email'];
+			$password=$_POST['pass'];
+        // Validate Email
+        if(empty($email)){
+         $emailError = 'Pleae enter email';
+        }
+
+        // Validate Password
+        if(empty($password)){
+          $passError = 'Please enter password';
+        }
+        if(!empty($email) && !empty($password)){
+     
+          $isLogged = $signup->loginAdmin($email,$password);
+
+          if($isLogged){
+            // Create Session
+				// session_start();
+            // $this->createUserSession($isLogged);
+			 $_SESSION['idAdmin'] = $isLogged['idAdmin'];
+			//  echo $_SESSION['idClient'];
+     		 $_SESSION['email'] = $isLogged['email'];
+     		 $_SESSION['pass'] = $isLogged['pass'];
+			header("Location: http://localhost/TripReservation/booking/dashboard");
+     		//  require_once __DIR__."/../view/manage.php";
+          } else {
+            $Error = 'Email or password is invalid';
+            require_once __DIR__."/../view/admin/login.php";
+          }
+        } else {
+          // Load view with errors
+		  $emailError="smthng is wrong";
+          require_once __DIR__."/../view/admin/login.php";
+        }
+
+
+      } else {
+        // Load view
+		$emailError="smthng is wrong";
+        require_once __DIR__."/../view/admin/login.php";
+      }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 	public function Logout()
 	{
 		 unset($_SESSION['idClient']);

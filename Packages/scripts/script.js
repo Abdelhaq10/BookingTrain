@@ -49,7 +49,10 @@ function createElements(trips)
         link.innerHTML="Reserve";
         event.append(link);
         tr.append(event);
-
+if(trips[trip].status == 0)
+{
+   link.style.pointerevents="none";
+}
           const space = document.createElement('tr');
           space.id="spacing-row";
           const tdsp=document.createElement('td');

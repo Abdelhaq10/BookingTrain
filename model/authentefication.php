@@ -63,6 +63,22 @@ public function login($email, $password){
     
     }
 
+
+    public function loginAdmin($email, $password){
+      $query="SELECT * FROM `admin` WHERE email = '$email'";
+      $logquery =$this->connect()->prepare($query);
+      $logquery->execute();
+      $result = $logquery->fetch();
+      // print_r($result);
+      $hashed_password = $result['pass'];
+      // echo $result['pass'];
+      if(password_verify($password, $hashed_password)){
+        return $result;
+      } else {
+        return false;
+      }
+    }
+
  public function reserveByClient($idTrip,$nbPerson,$price,$iduser)
     {
        $reserveC= new operation();

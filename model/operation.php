@@ -12,7 +12,8 @@ class operation extends Dbconnect {
     }
     public function getSpecifedTrip()
     {
-        $sql="SELECT trip.idTrip ,trip.dateDepart ,trip.dateArrive ,trip.departure , trip.arrival , trip.prix , trip.status FROM `trip` JOIN train ON (trip.idTrain=train.idTrain);";
+        // $sql="SELECT trip.idTrip ,trip.dateDepart ,trip.dateArrive ,trip.departure , trip.arrival , trip.prix , trip.status FROM `trip` JOIN train ON (trip.idTrain=train.idTrain);";
+        $sql ="SELECT trip.idTrip ,trip.dateDepart ,trip.dateArrive ,trip.departure , trip.arrival , trip.prix , trip.status , train.departureStation , train.arrivalStation FROM `trip` JOIN train ON (trip.idTrain=train.idTrain);";
         $stmt=$this->connect()->prepare($sql);
         $stmt->execute();
         $results = $stmt->fetchAll();
@@ -29,7 +30,7 @@ class operation extends Dbconnect {
             //reserve Trip
     public function insertUser($fname,$lname,$adresse,$email,$phone)
     {
-         $str="INSERT INTO `user`( `Fname`, `Lname`, `Adresse`, `email`, `phone`) VALUES(:fname, :lname,:adresse,:email,:phone)";
+        $str="INSERT INTO `user`( `Fname`, `Lname`, `Adresse`, `email`, `phone`) VALUES(:fname, :lname,:adresse,:email,:phone)";
 		$query=$this->connect()->prepare($str);
         $query->bindValue(':fname', $fname);
         $query->bindValue(':lname', $lname);

@@ -226,18 +226,31 @@ thead {
 }
 
 #spacing-row {
-    height: 10px
+    height: 10px;
 }
 
 
 
 
+/* manage style */
 
+.viewbox {
+    background-color: #EBF5FB;
+    margin-left: 0px;
+    padding: 10px 20px
+}
 
+.blue {
+    color: #000;
+    font-size: 30px
+}
+.box{
+    padding: 20px;
+}
 
-
-
-
+.pad{
+    padding: 20px;
+}
 
 
 @media (max-width:768px) {
