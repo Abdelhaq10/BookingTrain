@@ -21,7 +21,7 @@ class BookingController
 	}
 	public function contact()
 	{
-		require_once __DIR__."/../view/manage.php";
+		require_once __DIR__."/../view/contact.php";
 	}
 	public function createTrip()
 	{
@@ -207,58 +207,56 @@ class BookingController
         if(empty($password)){
           $passError = 'Please enter password';
         }
-
-        // Check for user/email
-        // if($use->findUserByEmail($data['email'])){
-          // User found
-        // } else {
-          // User not found
-        //   $data['email_err'] = 'No user found';
-        // }
-
-        // Make sure errors are empty
         if(!empty($email) && !empty($password)){
-          // Validated
-          // Check and set logged in user
           $isLogged = $signup->login($email,$password);
 
           if($isLogged){
-            // Create Session
-				// session_start();
-            // $this->createUserSession($isLogged);
+           
 			 $_SESSION['idClient'] = $isLogged['idClient'];
 			//  echo $_SESSION['idClient'];
      		 $_SESSION['email'] = $isLogged['email'];
      		 $_SESSION['password'] = $isLogged['pass'];
 			  $_SESSION['idUser'] = $isLogged['idUser'];
-     		 require_once __DIR__."/../view/index.php";
+     		//  require_once __DIR__."/../view/index.php";
+			  	header("Location: http://localhost/TripReservation/booking/index");
           } else {
             $Error = 'Email or password is invalid';
 
-            require_once __DIR__."/../view/client/login.php";
+            // require_once __DIR__."/../view/client/login.php";
+				header("Location: http://localhost/TripReservation/booking/loginClientPage");
           }
         } else {
           // Load view with errors
 		  $emailError="smthng is wrong";
-          require_once __DIR__."/../view/client/login.php";
+        //   require_once __DIR__."/../view/client/login.php";
+			header("Location: http://localhost/TripReservation/booking/loginClientPage");
         }
 
 
       } else {
         // Load view
 		$emailError="smthng is wrong";
-        require_once __DIR__."/../view/client/login.php";
+        // require_once __DIR__."/../view/client/login.php";
+			header("Location: http://localhost/TripReservation/booking/loginClientPage");
       }
     }
 
 	public function dashboard()
 	{
+		if(isset($_SESSION['idAdmin']))
+	{	
 		$manage=new Manage();
 		$listTrips=$manage->getReservation();
 		$nbTrips=$manage->countTrips()['COUNT(*)'];
 		$nbBooking=$manage->countReservation()['COUNT(*)'];
 		$nbClient=$manage->countClients()['COUNT(*)'];
 		require_once __DIR__."/../view/manage.php";
+			
+	}
+		else{
+			
+			header("Location: http://localhost/TripReservation/booking/loginAdminPage");
+		}
 	}
 
 

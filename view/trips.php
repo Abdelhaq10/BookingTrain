@@ -14,7 +14,7 @@
           <?php if(isset($_SESSION['active'])) : ?>
         <div class="alert alert-info alert-dismissible fade show" role="alert">
                 <strong>Succesfully!</strong> <?php echo $_SESSION['active'].".";
-                 unset($_SESSION['mssg']); ?>
+                 unset($_SESSION['active']); ?>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -26,7 +26,7 @@
         </div>
          <div class="h2 font-weight-bold pad">List Trips</div>
       
-         <?php print_r($tripsList) ?>
+      
     <div class="table-responsive">
         <table class="table">
             <thead>
