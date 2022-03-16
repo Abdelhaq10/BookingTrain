@@ -4,6 +4,7 @@
 
 <div class="card-body">
     <div class="wrapper text-center">
+        
         <h4 class="card-title">Dora Express Train Ticket Booking</h4>
         <p class="card-description">You succesfully created your booking!</p> <a href="http://localhost/TripReservation/Booking/index" class="btn btn-outline-primary" ><i class="bi bi-house-door-fill">&nbsp;&nbsp;Go Home</i></a>
     </div>

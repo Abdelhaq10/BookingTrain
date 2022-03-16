@@ -6,7 +6,7 @@ require_once __DIR__."/../model/operation.php";
 class Authentification extends operation{
 
 public function login($email, $password){
-      $query="SELECT * FROM `client` WHERE email = '$email'";
+      $query="SELECT * FROM `client` join `user` on client.idUser = user.idUser WHERE client.email = '$email'";
       $logquery =$this->connect()->prepare($query);
       $logquery->execute();
       $result = $logquery->fetch();

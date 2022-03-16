@@ -6,16 +6,7 @@
                 <div class="booking-form">
                     <div class="form-header">
                         <h1>Make your reservation</h1>
-                      <?php  
-                     
-                    //   print_r($selectedTrip);
-                    //   $var = $selectedTrip;
-                    //   print_r($var); 
-                      
-
-                      //Array ( [idTrip] => 1 [dateDepart] => 2022-02-02 20:15:04 
-                     // [dateArrive] => 2022-02-17 20:15:04 [departure] => Safi [arrival] => Fes [idTrain] => 3 [prix] => 120 [status] => 1 )
-                      ?>
+            
                     </div>
                     <form action="http://localhost/TripReservation/Booking/reserve" method="POST">
                         <div class="form-group">

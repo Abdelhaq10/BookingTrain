@@ -2,6 +2,14 @@
 require_once __DIR__."/../model/booking.php";
 require_once __DIR__."/../model/authentefication.php";
 require_once __DIR__."/../model/manage.php";
+
+//phpMailer
+require __DIR__.'/../Packages/includes/PHPMailer.php';
+require __DIR__.'/../Packages/includes/SMTP.php';
+require __DIR__.'/../Packages/includes/Exception.php';
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
 session_start();
 class BookingController
 {
@@ -72,6 +80,10 @@ class BookingController
 	{
 		echo "cancel function";
 	}
+	public function success()
+	{
+		require_once __DIR__."/../Packages/SuccesMssgs/addedsuccess.php";
+	}
 	public function bookingTrip($idTrip)
 	{
 		
@@ -81,35 +93,35 @@ class BookingController
 	
 		require_once __DIR__."/../view/tripBooking.php";
 	}
-	public function reserve()
-	{	
+	// public function reserve()
+	// {	
 		
-		$idT=$_POST['idTrip'];
-		$nbPerson=$_POST['nbperson'];
-		$price=$_POST['price'];
+	// 	$idT=$_POST['idTrip'];
+	// 	$nbPerson=$_POST['nbperson'];
+	// 	$price=$_POST['price'];
 		
-	//    echo $_SESSION['idUser'];
-		$reserveCli=new Authentification();
-		if(isset($_SESSION['idClient']))
-		{
-			$reserveCli->reserveByClient($idT,$nbPerson,$price,$_SESSION['idUser']);
-			require_once __DIR__."/../Packages/SuccesMssgs/addedsuccess.php";
+	// //    echo $_SESSION['idUser'];
+	// 	$reserveCli=new Authentification();
+	// 	if(isset($_SESSION['idClient']))
+	// 	{
+	// 		$reserveCli->reserveByClient($idT,$nbPerson,$price,$_SESSION['idUser']);
+	// 		require_once __DIR__."/../Packages/SuccesMssgs/addedsuccess.php";
 			
-		}
-		else{
-			$fname=$_POST['fname'];
-			$lname=$_POST['lname'];
-			$adresse=$_POST['adresse'];
-			$tel=$_POST['tel'];
-			$email=$_POST['email'];
-			 $booking=new booking($idT,$nbPerson,$price,$fname,$lname,$adresse,$email,$tel);
-			$booking->reserve();
-			$message ="added succesfully";
-			require_once __DIR__."/../Packages/SuccesMssgs/addedsuccess.php";$this->reservation();
+	// 	}
+	// 	else{
+	// 		$fname=$_POST['fname'];
+	// 		$lname=$_POST['lname'];
+	// 		$adresse=$_POST['adresse'];
+	// 		$tel=$_POST['tel'];
+	// 		$email=$_POST['email'];
+	// 		 $booking=new booking($idT,$nbPerson,$price,$fname,$lname,$adresse,$email,$tel);
+	// 		$booking->reserve();
+	// 		$message ="added succesfully";
+	// 		header("Location: http://localhost/TripReservation/booking/success");
 			
-		}
+	// 	}
 		
-	}
+	// }
 	public function loginPage()
 	{
 		$Error='';
@@ -217,19 +229,23 @@ class BookingController
      		 $_SESSION['email'] = $isLogged['email'];
      		 $_SESSION['password'] = $isLogged['pass'];
 			  $_SESSION['idUser'] = $isLogged['idUser'];
+			  $_SESSION['Adresse'] = $isLogged['Adresse'];
+			  $_SESSION['Fname'] = $isLogged['Fname'];
+			 $_SESSION['Lname'] = $isLogged['Lname'];
+			   $_SESSION['phone'] = $isLogged['phone'];
      		//  require_once __DIR__."/../view/index.php";
 			  	header("Location: http://localhost/TripReservation/booking/index");
           } else {
             $Error = 'Email or password is invalid';
 
             // require_once __DIR__."/../view/client/login.php";
-				header("Location: http://localhost/TripReservation/booking/loginClientPage");
+				header("Location: http://localhost/TripReservation/booking/loginPage");
           }
         } else {
           // Load view with errors
 		  $emailError="smthng is wrong";
         //   require_once __DIR__."/../view/client/login.php";
-			header("Location: http://localhost/TripReservation/booking/loginClientPage");
+			header("Location: http://localhost/TripReservation/booking/loginPage");
         }
 
 
@@ -318,8 +334,66 @@ class BookingController
 
 
 
+	// Send information of trip 
+	// public function information($idTrip,$name,$lname,$email,$phone,$dateD,$adresse)
+	public function information($idT,$fname,$lname,$tel,$adresse,$email,$date)
+	{
+			$body="Thank you for your reservation at DoraExpress. Your reservation is confirmed with the following info :
+				Code : $idT
+				Name: $fname $lname.
+				Email: '.$email.'
+				Phone Number: $tel .
+				Dates:  $date .
+				Address: $adresse .
+				I will contact you 24 hours prior to checkin to coordinate key pickup and to provide more info. Thanks again and have a good trip!";
+			$mail= new PHPMailer();
+			$mail->isSMTP();
+			$mail->Host = "smtp.gmail.com";
+			$mail->SMTPAuth= "true";
+			$mail->SMTPSecure = "tls";
+			$mail->port="587";
+			$mail->Username = "paymenttest1900@gmail.com";
+			$mail->Password = "abdelhaq1999";
+			// $mail->Subject = "test test allah allah";
+			$mail->Subject ="Your reservation at $date";
+			$mail->setFrom("paymenttest1900@gmail.com");
+			$mail->Body = "$body";
+			$mail->addAddress("$email");//sent To
+			$mail->Send() ;
+			$mail->smtpClose();
+}
 
 
+	public function reserve()
+	{	
+		
+		$idT=$_POST['idTrip'];
+		$nbPerson=$_POST['nbperson'];
+		$price=$_POST['price'];
+		$date=date("Y/m/d");
+	//    echo $_SESSION['idUser'];
+		$reserveCli=new Authentification();
+		if(isset($_SESSION['idClient']))
+		{
+			$reserveCli->reserveByClient($idT,$nbPerson,$price,$_SESSION['idUser']);
+			$this->information($idT,$_SESSION['Fname'],$_SESSION['Lname'],$_SESSION['phone'],$_SESSION['Adresse'],$_SESSION['email'],$date);
+			require_once __DIR__."/../Packages/SuccesMssgs/addedsuccess.php";
+			
+		}
+		else{
+			$fname=$_POST['fname'];
+			$lname=$_POST['lname'];
+			$adresse=$_POST['adresse'];
+			$tel=$_POST['tel'];
+			$email=$_POST['email'];
+			$booking=new booking($idT,$nbPerson,$price,$fname,$lname,$adresse,$email,$tel);
+			$booking->reserve();
+			$message ="added succesfully";
+			$this->information($idT,$fname,$lname,$tel,$adresse,$email,$date);
+			header("Location: http://localhost/TripReservation/booking/success");
+		}
+		
+	}
 
 
 
@@ -332,6 +406,7 @@ class BookingController
      	 unset($_SESSION['email']);
      	 unset($_SESSION['password']);
 		 unset($_SESSION['idUser']);
+		 session_unset();
       	 session_destroy();
 		   $this->index();
 	}	
