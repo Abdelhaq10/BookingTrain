@@ -30,8 +30,8 @@
                 <div class="collapse navbar-collapse " id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item"> <a class="nav-link" aria-current="page" href="http://localhost/TripReservation/Booking/index">Home</a> </li>
-                        <li class="nav-item"> <a class="nav-link" href="http://localhost/TripReservation/Booking/about">About</a> </li>
-                        <li class="nav-item"> <a class="nav-link" href="http://localhost/TripReservation/Booking/contact">Contact</a> </li>
+                        <!-- <li class="nav-item"> <a class="nav-link" href="http://localhost/TripReservation/Booking/about">About</a> </li>
+                        <li class="nav-item"> <a class="nav-link" href="http://localhost/TripReservation/Booking/contact">Contact</a> </li> -->
                         <li class="nav-item"> <a class="nav-link" href="http://localhost/TripReservation/Booking/reservation">Reservation</a> </li>
                         <!-- <li class="nav-item">  
                             <button type="button" class="btn nav-link" data-toggle="modal" data-target="#exampleModal">

@@ -31,10 +31,10 @@
             <div class="container-fluid"> <a class="navbar-brand" href="#">Dora Express</a> <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="fas fa-bars"></span> </button>
                 <div class="collapse navbar-collapse " id="navbarNav">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"> <a class="nav-link" aria-current="page" href="http://localhost/TripReservation/Booking/index"><i class="fa-solid fa-house"></i> Home </a> </li>
+                        <li class="nav-item"> <a class="nav-link" aria-current="page" href="http://localhost/TripReservation/Booking/dashboard"><i class="fa-solid fa-house"></i> Home </a> </li>
                         <li class="nav-item"> <a class="nav-link" href="http://localhost/TripReservation/Booking/trips"><i class="fa-solid fa-calendar-plus"></i> Trips</a> </li>
-                        <li class="nav-item"> <a class="nav-link" href="http://localhost/TripReservation/Booking/contact"><i class="fa-solid fa-plus"></i> Trains</a> </li>
-                        <li class="nav-item"> <a class="nav-link" href="http://localhost/TripReservation/Booking/reservation"><i class="fa-solid fa-users"></i> Clients</a> </li>
+                        <!-- <li class="nav-item"> <a class="nav-link" href="http://localhost/TripReservation/Booking/contact"><i class="fa-solid fa-plus"></i> Trains</a> </li> -->
+                        <!-- <li class="nav-item"> <a class="nav-link" href="http://localhost/TripReservation/Booking/reservation"><i class="fa-solid fa-users"></i> Clients</a> </li> -->
                         <li class="nav-item active"> <a class="nav-link btn-link" href="http://localhost/TripReservation/Booking/Logout">Log Out</a> </li>
                 
                     </ul>

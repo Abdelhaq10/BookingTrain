@@ -1,6 +1,9 @@
 <?php
 
  require_once "includes/header.php"; ?>
+  <?php if(isset($_SESSION['idUser'])) : ?>
+        <?php require_once __DIR__."/cart.php"; ?>
+<?php endif; ?>
  
 <div class="row">
     <div class="col-md-6 left-section">
@@ -10,4 +13,5 @@
     </div>
     <div class="col-md-6 center">
         <img class="img-fluid img" src="<?= IMG_PATH?>Station.png" alt="">
-   
+    </div>
+</div>

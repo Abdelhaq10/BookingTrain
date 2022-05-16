@@ -25,6 +25,7 @@
             </div>
         </div>
     <div class="h2 font-weight-bold pad">List Reservations</div>
+ 
     <div class="table-responsive">
         <table class="table">
             <thead>
@@ -32,7 +33,6 @@
                     <th scope="col">Departure Date/Station</th>
                     <th scope="col">Arrival Date/Station</th>
                     <th scope="col">Price</th>
-                    <th scope="col">Person(s)</th>
                     <th scope="col">Name</th>
                     <th scope="col">Email</th>
                     <th scope="col">Status</th>
@@ -44,7 +44,6 @@
                     <td class="pt-3 mt-1"><?=$trip['dateDepart']?><br> <?=$trip['departure'] ?></td>
                     <td class="pt-3"><?=$trip['dateArrive']?><br> <?=$trip['arrival'] ?></td>
                     <td class="pt-3"><?=$trip['payment']?></span></td>
-                    <td class="pt-3"><?=$trip['Nperson']?></span></td>
                     <td class="pt-3"><?=$trip['Fname']?> <?=$trip['Lname']?></span></td>
                     <td class="pt-3"><?=$trip['email']?></span></td>
                     <?php if($trip['status']==1) :?>
@@ -52,9 +51,7 @@
                      <?php elseif($trip['status']==0) : ?>
                     <td class="pt-3"><i class="fa-solid fa-ban pl-3"></i></span></td>
                     <?php endif; ?>
-                    <td class="pt-3"><button class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></button></span></td>
-                    <td class="pt-3"><button class="btn btn-danger"><i class="fa-solid fa-ban"></i></button></span></td>
-                </tr> 
+                   </tr> 
                 <tr id="spacing-row">
                     <td></td>
                 </tr>

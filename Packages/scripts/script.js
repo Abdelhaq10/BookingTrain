@@ -51,7 +51,7 @@ function createElements(trips)
         tr.append(event);
 if(trips[trip].status == 0)
 {
-   link.style.pointerevents="none";
+   link.style.PointerEvent="none";
 }
           const space = document.createElement('tr');
           space.id="spacing-row";

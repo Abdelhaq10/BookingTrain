@@ -15,7 +15,7 @@ class Manage extends operation
     }
       public function getReservation()
     {
-        $sql="SELECT trip.dateDepart,trip.dateArrive,trip.departure,trip.arrival,trip.status,booking.Nperson,booking.payment,user.Fname,user.Lname,user.email FROM `booking` join trip on booking.idTrip=trip.idTrip join user on booking.idUser=user.idUser;";
+        $sql="SELECT trip.dateDepart,trip.dateArrive,trip.departure,trip.arrival,trip.status,(SELECT COUNT(idBooking) FROM `booking` WHERE booking.idUser=124 )as numR,booking.payment,user.Fname,user.Lname,user.email FROM `booking` join trip on booking.idTrip=trip.idTrip join user on booking.idUser=user.idUser;";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute();
         $results = $stmt->fetchAll();
@@ -57,10 +57,23 @@ class Manage extends operation
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute();
     }
+      public function CancelAllReservation($idTrip)
+    {
+        $sql="UPDATE `booking` SET `state`='0' WHERE booking.idTrip ='$idTrip';";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute();
+    }
+       public function refrechPlaces($idTrip)
+    {
+        $sql="UPDATE train join trip on train.idTrain = trip.idTrain set train.NbSeat=50 WHERE trip.idTrip = '$idTrip';";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute();
+    }
     public function addTrip($dateD,$dateA,$departure,$arrival,$idTrain,$price)
     {
         $sql="INSERT INTO `trip`(`dateDepart`, `dateArrive`, `departure`, `arrival`, `idTrain`, `prix`, `status`) VALUES ('$dateD','$dateA','$departure','$arrival','$idTrain','$price','1')";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute();
     }
+
 }

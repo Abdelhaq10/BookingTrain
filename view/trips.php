@@ -22,10 +22,10 @@
         <?php endif ; ?>
         <div class="row mx-0 mt-2 box">
              <div class="col-md-12 text-right">
-            <a type="button" href="http://localhost/TripReservation/Booking/createTrip" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Add Trip</a>
+            <a type="button" href="http://localhost/TripReservation/Booking/createTrip" class="btn btn-primary"> Add Trip</a>
         </div>
          <div class="h2 font-weight-bold pad">List Trips</div>
-      
+    
       
     <div class="table-responsive">
         <table class="table">
@@ -51,7 +51,6 @@
                     <td class="pt-3"><i class="fa-solid fa-ban pl-3"></i></span></td>
                     <?php endif; ?>
                    
-                    <td class="pt-3"><a href="" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></a></span></td>
                    <?php if($trip['status']==1) :?>
                     <td class="pt-3"><a href="http://localhost/TripReservation/Booking/cancel/<?=$trip['idTrip']?>" class="btn btn-danger"><i class="fa-solid fa-ban"></i></a></span></td>
                    <?php elseif($trip['status']==0) :?>

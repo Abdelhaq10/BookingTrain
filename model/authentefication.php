@@ -72,6 +72,7 @@ public function login($email, $password){
       // print_r($result);
       $hashed_password = $result['pass'];
       // echo $result['pass'];
+   
       if(password_verify($password, $hashed_password)){
         return $result;
       } else {
@@ -79,10 +80,10 @@ public function login($email, $password){
       }
     }
 
- public function reserveByClient($idTrip,$nbPerson,$price,$iduser)
+ public function reserveByClient($idTrip,$price,$iduser) 
     {
        $reserveC= new operation();
-       $reserveC->addReservationByClient($idTrip,$nbPerson,$price,$iduser);
+       $reserveC->addReservationByClient($idTrip,$price,$iduser);
     }
 
 

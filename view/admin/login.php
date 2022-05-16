@@ -5,11 +5,17 @@
     <form action="http://localhost/TripReservation/Booking/Admin" method="POST">
     <div class="text-left"> 
         <H2>DoraExpress</H2><br> 
-        <?= $Error ?>
+          <?php if(isset($_SESSION['loginErrAd'])) : ?>
+        <span><?php echo $_SESSION['loginErrAd'].".";
+                 unset($_SESSION['loginErrAd']); ?>
+            </span>
+        
+        
+        <?php endif ; ?>
     </div>
     <div>
         <div class="inputbox">
-             <span>Email</span> <input type="text" name="email" class="form-control" required="required"> <span><?=""?>></span>
+             <span>Email</span> <input type="email" name="email" class="form-control" required="required"> 
         </div>
         <div class="inputbox">
             <div class="d-flex justify-content-between align-items-center"> <span>Password</span>

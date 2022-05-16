@@ -3,17 +3,16 @@ require_once __DIR__."/../model/operation.php";
 
 class booking extends operation{
  
-    private $nbPerson;
-    private $price;
+    // private $nbPerson;
+    private $price ;
     private $fname;
     private $lname;
     private $adresse;
     private $email;
     private $phone;
-    public function __construct($idTrip,$nbPerson,$price,$fname,$lname,$adresse,$email,$phone)
+    public function __construct($idTrip,$price,$fname,$lname,$adresse,$email,$phone)
     {   
         $this->idTrip=$idTrip;
-        $this->nbPerson=$nbPerson;
         $this->price=$price;
         $this->fname=$fname;
         $this->lname=$lname;
@@ -32,6 +31,16 @@ class booking extends operation{
         $oper=new operation();
         return $oper->getSpecifedTrip();
     }
+    public static function departure()
+    {
+         $oper=new operation();
+        return $oper->getDepart();
+    }
+     public static function arrival()
+    {
+         $oper=new operation();
+        return $oper->getArrival();
+    }
     public static function selectedTrip($idTrip)
     {
         $select=new operation();
@@ -40,8 +49,8 @@ class booking extends operation{
     public function reserve()
     {
         $reserve=new operation();
-        $reserve->addReservation($this->idTrip,$this->nbPerson,$this->price,$this->fname,$this->lname,$this->adresse,$this->email,$this->phone);
+        $reserve->addReservation($this->idTrip,$this->price,$this->fname,$this->lname,$this->adresse,$this->email,$this->phone);
       
     }
-   
+ 
 }

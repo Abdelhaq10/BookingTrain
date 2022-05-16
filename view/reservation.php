@@ -1,5 +1,8 @@
 <?php
  require_once "includes/header.php"; ?>
+ <?php if(isset($_SESSION['idUser'])) : ?>
+        <?php require_once __DIR__."/cart.php"; ?>
+<?php endif; ?>
      
                                     <!-- Seaching Form for Trip -->
 
@@ -16,9 +19,9 @@
                                 <div class="col-md-6 pl-0 pr-0 pr-md-2 mb-2"> 
                                     <input type="datetime-local" name="start-date" id="start"  required> 
                                 </div>
-                                <div class="col-md-6 pl-0 pl-md-2 pr-0"> 
-                                    <input type="datetime-local" name="end-date" id="end" required> 
-                                </div>
+                                <!-- <div class="col-md-6 pl-0 pl-md-2 pr-0"> 
+                                    <input type="date" name="end-date" id="end" required> 
+                                </div> -->
                         </div>
                     </div>
                 </div>
@@ -30,16 +33,16 @@
                                 <div class="col-md-6 pl-0 pr-0 pr-md-2 mb-2"> 
                                         <select id="stationDep"  name="stationDep" class="form-control">
                                                 <option selected disabled>Station Depart</option>
-                                                <?php foreach($trains as $train) : ?>
-                                                <option value="<?= $train['departureStation'] ?>"><?= $train['departureStation'] ?></option>
+                                                <?php foreach($depart as $d) : ?>
+                                                <option value="<?= $d['departure'] ?>"><?= $d['departure'] ?></option>
                                                 <?php endforeach ?>
                                         </select>
                                 </div>
                                 <div class="col-md-6 pl-0 pl-md-2 pr-0"> 
                                      <select id="stationAri" name="stationAri" class="form-control">
                                                 <option selected disabled>Station D'arrive</option>
-                                                 <?php foreach($trains as $train) : ?>
-                                                <option value="<?= $train['arrivalStation'] ?>"><?= $train['arrivalStation'] ?></option>
+                                                 <?php foreach($arrive as $a) : ?>
+                                                <option value="<?= $a['arrival'] ?>"><?= $a['arrival'] ?></option>
                                                 <?php endforeach ?>
                                     </select>
                                 </div>
@@ -80,8 +83,16 @@
 
 <script src="../Packages/scripts/script.js"></script>
 <script>
+      
+
+    var today = new Date().toISOString().slice(0, 16);
+                  
+                      document.getElementsByName("start-date")[0].min = today;
+    // document.getElementsByName("end-date")[0].min = today;
+
      const trips = JSON.parse('<?php echo json_encode($trips); ?>');
      console.log(trips);
+     
      var search=document.querySelector("#searchbtn");
      const dateDep=document.querySelector("#start");
      const dateArr=document.querySelector("#end");
@@ -94,17 +105,18 @@
         //   dateD = dateD.substring(0,10)+" "+dateD.substring(11,16);
           dateD = dateD.substring(0,10);
           console.log(dateD);
-            var dateA=dateArr.value;
-            //  dateA = dateA.substring(0,10)+" "+dateA.substring(11,16);
-             dateA = dateA.substring(0,10);
-         console.log(dateA);
+        //     var dateA=dateArr.value;
+        //     //  dateA = dateA.substring(0,10)+" "+dateA.substring(11,16);
+        //      dateA = dateA.substring(0,10);
+        //  console.log(dateA);
 
         var depart= departure.value;
+        console.log("depart : "+depart)
         var arrive = arrival.value;
+ console.log("arrive : "+arrive)
 
 
-
-         var t=trips.filter(function (tr){return (tr.dateDepart.substring(0,10) === dateD) && (tr.dateArrive.substring(0,10) === dateA) && (tr.departureStation == depart) && (tr.arrivalStation == arrive);})
+         var t=trips.filter(function (tr){return (tr.dateDepart.substring(0,10) >= dateD) && (tr.departure == depart) && (tr.arrival == arrive) && (tr.status==1);})
                  console.log(t);
          listTrips(t);
         //    for(const trip in trips)
@@ -119,5 +131,8 @@
         // }
         //       console.log(get);
             //    listTrips(get);
+
+            
      });
+     
 </script>
